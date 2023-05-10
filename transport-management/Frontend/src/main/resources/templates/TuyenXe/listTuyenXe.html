@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <div th:insert="home::boot"></div>
+</head>
+<body>
+<nav th:insert="home::layout"></nav>
+
+<div class="container">
+<div th:if="${success}"
+			class="row alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+    <div class="panel panel-primary">
+        <div class="panel-heading"><br>
+            <strong>Danh sách tuyến xe</strong>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-inline" method="get" th:action="@{/tuyenXe}">
+                <div class="form-group  mb-2 mr-3" style="width:70%;">
+                    <input class="form-control " type="text" style="width:100%" name="keyword" id="keyword" th:value="${keyword}" required />
+                </div>
+                <input type="submit" class="btn btn-secondary mb-2" value="Search" />
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Điểm đầu</th>
+                    <th>Điểm cuối</th>
+                    <th>Độ phức tạp</th>
+                    <th>Action</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody th:each="tuyenXe: ${listTuyenXe}">
+                <tr>
+                    <td><a th:href="'tuyenXe/' + ${tuyenXe.tuyenXeId}" th:text="${tuyenXe.tuyenXeId}"></a></td>
+                    <td th:text="${tuyenXe.diemDau}"></td>
+                    <td th:text="${tuyenXe.diemCuoi}"></td>
+                    <td th:text="${tuyenXe.doPhucTap}"></td>
+                    <td><a class="btn btn-warning" th:href="'tuyenXe/edit/'+${tuyenXe.tuyenXeId}" th:text="Sửa"></a></td>
+                    <td><a class="btn btn-danger" th:href="'tuyenXe/delete/'+${tuyenXe.tuyenXeId}" th:text="Xóa"></a></td>
+                </tr>
+                </tbody>
+            </table>
+            <td><a class="btn btn-primary" th:href="'tuyenXe/create'" th:text="Thêm"></a></td>
+            <td><a class="btn btn-primary" th:href="'tuyenXe'" th:text="'Danh'+' sách'"></a></td>
+        </div>
+    </div>
+</div>
+</body>
+</html>
